@@ -4,10 +4,7 @@
 
 package net.gtr.framework.rx.dialog;
 
-import android.content.Context;
-import android.view.View;
-
-import com.afollestad.materialdialogs.MaterialDialog;
+import android.content.DialogInterface;
 
 /**
  * Created by heisenberg on 2018/10/20.
@@ -22,7 +19,7 @@ public interface MessageDialog extends BaseDialog {
 
     MessageDialog setPositiveText(CharSequence btnText);
 
-    MessageDialog onPositive(View.OnClickListener positiveClick);
+    MessageDialog onPositive(DialogInterface.OnClickListener positiveClick);
 
     MessageDialog setCancelable(boolean mCancelable);
 

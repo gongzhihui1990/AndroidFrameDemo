@@ -6,7 +6,7 @@ import net.gtr.framework.util.Loger
 class App : BaseApp() {
     override fun initApk() {
         Loger.i("initApk success")
-        val str ="  12322  "
+        val str = "  12322  "
         str.trim()
     }
 }

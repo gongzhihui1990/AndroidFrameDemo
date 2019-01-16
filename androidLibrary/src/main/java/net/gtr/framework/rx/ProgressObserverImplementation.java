@@ -16,9 +16,9 @@ import net.gtr.framework.app.BaseApp;
 import net.gtr.framework.exception.IServerAuthException;
 import net.gtr.framework.exception.IgnoreShow;
 import net.gtr.framework.rx.dialog.CustomLoadingDialog;
-import net.gtr.framework.rx.dialog.CustomMessageDialog;
 import net.gtr.framework.rx.dialog.LoadingDialog;
 import net.gtr.framework.rx.dialog.MessageDialog;
+import net.gtr.framework.rx.dialog.NativeMessageDialog;
 import net.gtr.framework.util.Loger;
 
 import androidx.annotation.StringRes;
@@ -45,21 +45,25 @@ public class ProgressObserverImplementation<T> extends AbstractProgressResourceS
     public interface ThrowableInterceptor {
         /**
          * 是否提前处理掉此错误
+         *
          * @param e
          * @return
          */
         boolean intercept(Throwable e);
 
     }
+
     public interface ThrowableParser {
 
         /**
          * 异常内容转换
+         *
          * @param e
          * @return
          */
         String doParse(Throwable e);
     }
+
     private static ThrowableInterceptor throwableInterceptor = e -> false;
     private static ThrowableParser throwableParser = e -> null;
 
@@ -71,6 +75,7 @@ public class ProgressObserverImplementation<T> extends AbstractProgressResourceS
     public static void setUnifiedThrowableHandler(ThrowableInterceptor throwableInterceptor) {
         ProgressObserverImplementation.throwableInterceptor = throwableInterceptor;
     }
+
     /**
      * 设置统一异常处理，一般放在应用初始化的时候
      *
@@ -205,16 +210,17 @@ public class ProgressObserverImplementation<T> extends AbstractProgressResourceS
         if (Looper.myLooper() != Looper.getMainLooper()) {
             return false;
         }
-        if (messageDialog != null && messageDialog.isShowing()) {
-            try {
-                messageDialog.dismiss();
-            } catch (Exception e) {
-                //底层比较渣
-                Loger.e("底层比较渣" + e.getClass());
+        if (messageDialog != null) {
+            if (messageDialog.isShowing()) {
+                try {
+                    messageDialog.dismiss();
+                } catch (Exception e) {
+                    //底层比较渣
+                    Loger.e("遇到底层比较渣的情况：" + e.getClass());
+                }
             }
-            //TODO msgDialogBuilder = new MaterialDialog.Builder(getContext());
-        }else {
-            messageDialog = new CustomMessageDialog(getContext());
+        } else {
+            messageDialog = new NativeMessageDialog(getContext());
         }
         return true;
 
@@ -223,14 +229,11 @@ public class ProgressObserverImplementation<T> extends AbstractProgressResourceS
     public void setDialogConfirmBtn(CharSequence btnText, final View.OnClickListener onClickListener) {
 
         if (checkDialog()) {
-            messageDialog.setPositiveText(btnText).onPositive(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onClickListener != null) {
-                        onClickListener.onClick(null);
-                    }
-                    messageDialog.dismiss();
+            messageDialog.setPositiveText(btnText).onPositive((dialog, which) -> {
+                if (onClickListener != null) {
+                    onClickListener.onClick(null);
                 }
+                messageDialog.dismiss();
             });
         }
 

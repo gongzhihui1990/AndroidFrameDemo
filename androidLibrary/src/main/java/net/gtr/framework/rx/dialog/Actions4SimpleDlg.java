@@ -2,7 +2,7 @@
  * Copyright (c) 2017. heisenberg.gong
  */
 
-package net.gtr.framework.rx;
+package net.gtr.framework.rx.dialog;
 
 import android.os.Parcel;
 import android.os.Parcelable;

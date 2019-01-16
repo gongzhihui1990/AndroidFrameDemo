@@ -1,29 +1,32 @@
-/*
- * Copyright (c) 2017. heisenberg.gong
- */
-
 package net.gtr.framework.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import net.gtr.framework.activity.RxAppCompatActivity;
-import net.gtr.framework.rx.ApplicationObserverResourceHolder;
+import net.gtr.framework.rx.dialog.DialogObserverHolder;
 import net.gtr.framework.rx.ObserverResourceManager;
 
 import org.reactivestreams.Subscription;
 
 import androidx.annotation.IdRes;
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import butterknife.ButterKnife;
 import io.reactivex.disposables.Disposable;
 
-public abstract class RxBaseFragment extends Fragment implements ApplicationObserverResourceHolder {
+/**
+ *
+ * @author caroline
+ * @date 2018/4/24
+ */
+
+public abstract class RxDialogFragment extends DialogFragment implements DialogObserverHolder {
     protected RxAppCompatActivity mActivity;
     /**
      * use to manage resource
@@ -46,17 +49,9 @@ public abstract class RxBaseFragment extends Fragment implements ApplicationObse
         return getView().findViewById(id);
     }
 
-    @Nullable
-    public View onCreateView(LayoutInflater inflater, @Nullable View container, @Nullable Bundle savedInstanceState) {
-        if (container != null) {
-            ButterKnife.bind(this, container);
-        }
-        return container;
-    }
-
     @SuppressWarnings("deprecation")
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
         this.mActivity = (RxAppCompatActivity) activity;
     }
@@ -128,6 +123,11 @@ public abstract class RxBaseFragment extends Fragment implements ApplicationObse
     @Override
     public void removeSubscription(Subscription subscription) {
         observerResourceManager.removeSubscription(subscription);
+    }
+
+    @Override
+    public FragmentManager getSupportFragmentManager() {
+        return super.getFragmentManager();
     }
 
 }

@@ -1,33 +1,27 @@
+/*
+ * Copyright (c) 2017. heisenberg.gong
+ */
+
 package net.gtr.framework.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import net.gtr.framework.activity.RxAppCompatActivity;
-import net.gtr.framework.rx.DialogObserverHolder;
+import net.gtr.framework.rx.ApplicationObserverResourceHolder;
 import net.gtr.framework.rx.ObserverResourceManager;
 
 import org.reactivestreams.Subscription;
 
 import androidx.annotation.IdRes;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import butterknife.ButterKnife;
 import io.reactivex.disposables.Disposable;
 
-/**
- *
- * @author caroline
- * @date 2018/4/24
- */
-
-public abstract class RxBaseDialogFragment extends DialogFragment implements DialogObserverHolder {
+public abstract class RxFragment extends Fragment implements ApplicationObserverResourceHolder {
     protected RxAppCompatActivity mActivity;
     /**
      * use to manage resource
@@ -50,18 +44,10 @@ public abstract class RxBaseDialogFragment extends DialogFragment implements Dia
         return getView().findViewById(id);
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (container != null) {
-            ButterKnife.bind(this, container);
-        }
-        return container;
-    }
 
     @SuppressWarnings("deprecation")
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
         this.mActivity = (RxAppCompatActivity) activity;
     }
@@ -133,11 +119,6 @@ public abstract class RxBaseDialogFragment extends DialogFragment implements Dia
     @Override
     public void removeSubscription(Subscription subscription) {
         observerResourceManager.removeSubscription(subscription);
-    }
-
-    @Override
-    public FragmentManager getSupportFragmentManager() {
-        return super.getFragmentManager();
     }
 
 }
