@@ -36,6 +36,7 @@ public class CustomLoadingDialog extends Dialog implements LoadingDialog {
         View layout = View.inflate(context, R.layout.dialog_waiting, null);
         setContentView(layout);
         Window window = getWindow();
+        assert window != null;
         WindowManager.LayoutParams params = window.getAttributes();
         params.gravity = Gravity.CENTER;
         window.setAttributes(params);
