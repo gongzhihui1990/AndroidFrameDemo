@@ -91,12 +91,13 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/funView1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@color/main1"
                         android:gravity="center"
-                        android:text="一"
+                        android:text="3-5岁"
                         android:textSize="20sp" />
 
                     <TextView

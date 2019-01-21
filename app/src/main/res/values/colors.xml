@@ -3,10 +3,18 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="main1">#f35a25</color>
-    <color name="main2">#f3ca25</color>
-    <color name="main3">#25f334</color>
-    <color name="main4">#25f3dd</color>
-    <color name="main5">#2547f3</color>
-    <color name="main6">#f325e2</color>
+
+    <color name="main1">#ed1c24</color>
+    <color name="main2">#ffc90e</color>
+    <color name="main3">#22b14c</color>
+    <color name="main4">#99d9ea</color>
+    <color name="main5">#3f48cc</color>
+    <color name="main6">#ff00ff</color>
+
+    <color name="main1_bg">#99f35a25</color>
+    <color name="main2_bg">#99f3ca25</color>
+    <color name="main3_bg">#9925f334</color>
+    <color name="main4_bg">#9925f3dd</color>
+    <color name="main5_bg">#992547f3</color>
+    <color name="main6_bg">#99f325e2</color>
 </resources>

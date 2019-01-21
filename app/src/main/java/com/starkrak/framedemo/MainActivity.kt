@@ -1,6 +1,7 @@
 package com.starkrak.framedemo
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -48,10 +49,10 @@ class MainActivity : BaseActivity() {
         banner.setIndicatorGravity(BannerConfig.CENTER)
         //设置图片加载器
         banner.setImageLoader(GlideImageLoader())
-        val images= arrayOf(
+        val images = arrayOf(
                 "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547632366691&di=0cdab09090f0056fd939a907f278f2c0&imgtype=0&src=http%3A%2F%2Fww2.sinaimg.cn%2Flarge%2F91e9ebb3jw1ea3gqi52u0j21hc0xc4qp.jpg"
-                ,"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547632366690&di=624441572650ed0c8e7c664a46684bd6&imgtype=0&src=http%3A%2F%2Fwww.sucaitianxia.com%2FPhoto%2Fpic%2F200910%2Fnbzbs32.jpg"
-                ,"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547632366689&di=21fdf009f79b7a6761fdf74097045c7d&imgtype=0&src=http%3A%2F%2Fpic12.photophoto.cn%2F20090720%2F0036036365966496_b.jpg")
+                , "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547632366690&di=624441572650ed0c8e7c664a46684bd6&imgtype=0&src=http%3A%2F%2Fwww.sucaitianxia.com%2FPhoto%2Fpic%2F200910%2Fnbzbs32.jpg"
+                , "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547632366689&di=21fdf009f79b7a6761fdf74097045c7d&imgtype=0&src=http%3A%2F%2Fpic12.photophoto.cn%2F20090720%2F0036036365966496_b.jpg")
         banner.setImages(images.toMutableList())
         //设置banner动画效果
         banner.setBannerAnimation(Transformer.Default)
@@ -60,6 +61,7 @@ class MainActivity : BaseActivity() {
         //设置轮播时间
         banner.setDelayTime(3000)
         banner.start()
+        funView1.setOnClickListener { startActivity(Intent(this, PlayActivity::class.java)) }
     }
 
     private inner class GlideImageLoader : ImageLoader() {
