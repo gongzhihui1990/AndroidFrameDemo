@@ -102,11 +102,13 @@
         app:layout_constraintTop_toBottomOf="@id/lineBottom">
 
         <FrameLayout
+            android:id="@+id/item1Layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/item1View"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -119,6 +121,7 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/item2View"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -131,6 +134,7 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/item3View"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -144,6 +148,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
+                android:id="@+id/item4View"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/round_4" />
@@ -156,6 +161,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
+                android:id="@+id/item5View"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/round_5" />
@@ -169,6 +175,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/item6View"
                 android:layout_gravity="center"
                 android:background="@drawable/round_6" />
         </FrameLayout>
@@ -191,6 +198,7 @@
 
 
         <FrameLayout
+            android:id="@+id/answerBox1"
             android:layout_width="match_parent"
             android:background="@android:color/white"
             android:layout_height="0dp"
@@ -210,6 +218,7 @@
             android:background="@color/colorPrimaryDark" />
 
         <FrameLayout
+            android:id="@+id/answerBox2"
             android:layout_width="match_parent"
             android:background="@android:color/white"
             android:layout_height="0dp"
@@ -230,6 +239,7 @@
             android:background="@color/colorPrimaryDark" />
 
         <FrameLayout
+            android:id="@+id/answerBox3"
             android:layout_width="match_parent"
             android:background="@android:color/white"
             android:layout_height="0dp"
@@ -251,6 +261,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:id="@+id/answerBox4"
             android:background="@android:color/white"
             android:layout_weight="1">
 
@@ -270,6 +281,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:background="@android:color/white"
+            android:id="@+id/answerBox5"
             android:layout_height="0dp"
             android:layout_weight="1">
 
@@ -289,6 +301,7 @@
         <FrameLayout
             android:background="@android:color/white"
             android:layout_width="match_parent"
+            android:id="@+id/answerBox6"
             android:layout_height="0dp"
             android:layout_weight="1">
 
