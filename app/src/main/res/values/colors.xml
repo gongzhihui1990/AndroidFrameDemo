@@ -11,10 +11,10 @@
     <color name="main5">#3f48cc</color>
     <color name="main6">#ff00ff</color>
 
-    <color name="main1_bg">#99f35a25</color>
-    <color name="main2_bg">#99f3ca25</color>
-    <color name="main3_bg">#9925f334</color>
-    <color name="main4_bg">#9925f3dd</color>
-    <color name="main5_bg">#992547f3</color>
-    <color name="main6_bg">#99f325e2</color>
+    <color name="main1_bg">#ed1c24</color>
+    <color name="main2_bg">#ffc90e</color>
+    <color name="main3_bg">#22b14c</color>
+    <color name="main4_bg">#99d9ea</color>
+    <color name="main5_bg">#3f48cc</color>
+    <color name="main6_bg">#ff00ff</color>
 </resources>

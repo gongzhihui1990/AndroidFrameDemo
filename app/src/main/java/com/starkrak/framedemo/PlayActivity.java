@@ -6,6 +6,13 @@ import android.graphics.PointF;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.starkrak.framedemo.game.GameBall;
+import com.starkrak.framedemo.game.GameBox;
+import com.starkrak.framedemo.game.GameColor;
+import com.starkrak.framedemo.game.GameSrc;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -13,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 @LayoutID(R.layout.activity_play)
 public class PlayActivity extends BaseActivity {
@@ -22,11 +30,13 @@ public class PlayActivity extends BaseActivity {
 
     private final GameBox[] gameBoxes = new GameBox[6];
 
+    private TextView title;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //控件初始化
         PointF dragTouchPoint = new PointF();
-
         DragListener dragListener = dragItem -> {
             MyDragShadowBuilder dragShadowBuilder = new MyDragShadowBuilder(dragItem,
                     new Point(((int) (dragTouchPoint.x - dragItem.getX())), (int) (dragTouchPoint.y - dragItem.getY())));
@@ -63,20 +73,52 @@ public class PlayActivity extends BaseActivity {
         List<DragListManager.ActionView> actionViews = initActionViews();
         DragListManager dragManager = new DragListManager(this, actionViews);
         for (GameBall gameBall : gameBalls) {
-            gameBall.view.setOnTouchListener(onTouchListener);
-            gameBall.view.setOnDragListener(dragManager);
+            gameBall.getView().setOnTouchListener(onTouchListener);
+            gameBall.getView().setOnDragListener(dragManager);
         }
+        title = findViewById(R.id.title);
+        findViewById(R.id.ballLayout).setOnDragListener(dragManager);
+        findViewById(R.id.mainView).setOnDragListener(dragManager);
+        //初始化题目
+        renderGamePage(createTest());
+    }
 
+    private GameSrc createTest() {
+        GameSrc gameSrc = new GameSrc();
+        gameSrc.questionDrawable = ContextCompat.getDrawable(getContext(), R.drawable.a1_test);
+        GameSrc.Answer[] answer = new GameSrc.Answer[6];
+        answer[0] = new GameSrc.Answer(ContextCompat.getDrawable(this, R.mipmap.a1_0), GameColor.SkyBlue);
+        answer[1] = new GameSrc.Answer(ContextCompat.getDrawable(this, R.mipmap.a2_0), GameColor.Green);
+        answer[2] = new GameSrc.Answer(ContextCompat.getDrawable(this, R.mipmap.a3_0), GameColor.Pink);
+        answer[3] = new GameSrc.Answer(ContextCompat.getDrawable(this, R.mipmap.a4_0), GameColor.Red);
+        answer[4] = new GameSrc.Answer(ContextCompat.getDrawable(this, R.mipmap.a5_0), GameColor.Yellow);
+        answer[5] = new GameSrc.Answer(ContextCompat.getDrawable(this, R.mipmap.a6_0), GameColor.DarkBlue);
+        gameSrc.answer = answer;
+        gameSrc.setGameHint("请把你认为有关联的图片整理起来");
+        return gameSrc;
+    }
+
+
+    private void renderGamePage(@NonNull GameSrc gameSrc) {
+        title.setTag(gameSrc.getHint());
+        title.setText(gameSrc.getHint());
+        ImageView gamePageView = findViewById(R.id.gamePageView);
+        gamePageView.setImageDrawable(gameSrc.questionDrawable);
+        for (int i = 0; i < gameSrc.answer.length && i < gameBoxes.length; i++) {
+            gameBoxes[i].getImageView().setImageDrawable(gameSrc.answer[i].answerDrawable);
+            gameBoxes[i].setRightColor(gameSrc.answer[i].answerColor);
+        }
     }
 
     private List<DragListManager.ActionView> initActionViews() {
         List<DragListManager.ActionView> list = new ArrayList<>();
         for (GameBox gameBox : gameBoxes) {
-            DragListManager.ActionView actionView = new DragListManager.ActionView(gameBox.view, new DragListManager.ActionView.OnDragListener() {
+            DragListManager.ActionView actionView = new DragListManager.ActionView(gameBox.getView(), new DragListManager.ActionView.OnDragListener() {
                 @Override
                 public void onDropIn(Object localState) {
                     gameBox.setGameBall((GameBall) localState);
                     gameBox.invalidate();
+                    checkGame();
                 }
 
                 @Override
@@ -89,88 +131,30 @@ public class PlayActivity extends BaseActivity {
         return list;
     }
 
-    enum Color {
-        Red, Yellow, Green, Blue, Group, Pink
+    private void checkGame() {
+        for (GameBox gameBox : gameBoxes) {
+            if (!gameBox.isFilled()) {
+                onFilling();
+                return;
+            }
+        }
+        onComplete();
     }
 
-    private class GameBall implements GameView {
-        Color color;
-        boolean used = false;
-        //0-5
-        int currentIndex = -1;
-        View view;
-
-        GameBall(@NonNull View view) {
-            this.view = view;
-            switch (view.getId()) {
-                case R.id.item1View:
-                    color = Color.Red;
-                    break;
-                case R.id.item2View:
-                    color = Color.Yellow;
-                    break;
-                case R.id.item3View:
-                    color = Color.Green;
-                    break;
-                case R.id.item4View:
-                    color = Color.Blue;
-                    break;
-                case R.id.item5View:
-                    color = Color.Group;
-                    break;
-                case R.id.item6View:
-                    color = Color.Pink;
-                    break;
-                default:
-                    throw new RuntimeException("不支持");
-            }
-            view.setTag(this);
-        }
-
-        @Override
-        public void invalidate() {
-            if (used) {
-                view.setAlpha(0.3f);
-            } else {
-                view.setAlpha(1f);
-            }
-        }
+    //填写中
+    private void onFilling() {
+        title.setText((String) title.getTag());
     }
 
-    private class GameBox implements GameView {
-        GameBall gameBall;
-        GameBall gameBallPrv;
-        View view;
-
-        GameBox(@NonNull View view) {
-            this.view = view;
-        }
-
-        private void setGameBall(GameBall gameBall) {
-            gameBall.used = true;
-            if (this.gameBall != null) {
-                this.gameBallPrv = this.gameBall;
-                this.gameBallPrv.used = false;
-            }
-            this.gameBall = gameBall;
-        }
-
-        private void clear() {
-            this.gameBall = null;
-        }
-
-        @Override
-        public void invalidate() {
-            if (gameBall != null) {
-                gameBall.invalidate();
-            }
-            if (this.gameBallPrv != null) {
-                this.gameBallPrv.invalidate();
+    private void onComplete() {
+        for (GameBox gameBox : gameBoxes) {
+            if (!gameBox.isRight()) {
+                title.setText("错误");
+                return;
             }
         }
+        //正确
+        title.setText("正确");
     }
 
-    interface GameView {
-        void invalidate();
-    }
 }

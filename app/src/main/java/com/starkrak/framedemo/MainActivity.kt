@@ -64,6 +64,15 @@ class MainActivity : BaseActivity() {
         funView1.setOnClickListener { startActivity(Intent(this, PlayActivity::class.java)) }
     }
 
+    override fun onResume() {
+        super.onResume()
+        blurLayout.startBlur()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        blurLayout.pauseBlur()
+    }
     private inner class GlideImageLoader : ImageLoader() {
         override fun displayImage(context: Context, path: Any, imageView: ImageView) {
             //Glide 加载图片简单用法
