@@ -182,11 +182,11 @@ public class PlayActivity extends BaseActivity {
     private void onComplete() {
         for (GameBox gameBox : gameBoxes) {
             if (!gameBox.isRight()) {
-                View contentView = View.inflate(getContext(), R.layout.simple_error_toast_layout_, null);
+                View contentView = View.inflate(getContext(), R.layout.simple_error_toast_layout, null);
                 Toast toast = new Toast(getContext());
                 toast.setView(contentView);
                 toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setDuration(Toast.LENGTH_LONG);
                 toast.show();
                 return;
             }
