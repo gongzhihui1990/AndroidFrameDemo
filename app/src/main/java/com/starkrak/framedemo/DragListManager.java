@@ -6,11 +6,15 @@ import android.os.Vibrator;
 import android.view.DragEvent;
 import android.view.View;
 
+import com.starkrak.framedemo.game.GameBall;
+
 import net.gtr.framework.util.Loger;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 /**
  * @author caroline
@@ -101,7 +105,7 @@ public class DragListManager implements View.OnDragListener {
 
                 break;
         }
-        Loger.i("sssss-onDrag---"+event.getX()+"/"+event.getY());
+        Loger.i("sssss-onDrag---" + event.getX() + "/" + event.getY());
 
         for (ActionView actionView : actionViews) {
             actionView.handlerDragEvent(v, event);
@@ -131,9 +135,9 @@ public class DragListManager implements View.OnDragListener {
             onCrossing();
 
             if (inView) {
-                onInBody();
+                onInBody(event.getLocalState());
             } else {
-                onOutBody();
+                onOutBody(event.getLocalState());
             }
         }
 
@@ -163,17 +167,24 @@ public class DragListManager implements View.OnDragListener {
         /**
          * 界内
          */
-        private void onInBody() {
-            Loger.i("onInBody");
+        private void onInBody(@Nullable Object object) {
             targetView.setAlpha(0.8f);
+            if (object instanceof GameBall) {
+                Loger.e("onInBody");
+                GameBall ball = (GameBall) object;
+                targetView.setBackground(ContextCompat.getDrawable(App.getContext(), ball.getGameColor().color));
+            }
         }
 
         /**
          * 界外
          */
-        private void onOutBody() {
-            Loger.i("onOutBody");
+        private void onOutBody(@Nullable Object object) {
             targetView.setAlpha(1.0f);
+            if (object instanceof GameBall) {
+                Loger.e("onOutBody");
+                targetView.setBackground(ContextCompat.getDrawable(App.getContext(), android.R.color.white));
+            }
         }
 
         /**
@@ -188,12 +199,16 @@ public class DragListManager implements View.OnDragListener {
         /**
          * 内部释放
          */
-        private void dropInBody(Object data) {
+        private void dropInBody(Object object) {
             Loger.i("dropInBody");
             if (targetAction == null) {
                 return;
             }
-            targetAction.onDropIn(data);
+            if (object instanceof GameBall) {
+                Loger.e("dropInBody");
+                targetView.setBackground(ContextCompat.getDrawable(App.getContext(), android.R.color.white));
+            }
+            targetAction.onDropIn(object);
         }
 
         /**

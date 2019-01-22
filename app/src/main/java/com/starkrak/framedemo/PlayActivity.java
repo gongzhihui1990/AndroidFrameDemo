@@ -4,15 +4,20 @@ import android.annotation.SuppressLint;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.starkrak.framedemo.game.GameBall;
 import com.starkrak.framedemo.game.GameBox;
 import com.starkrak.framedemo.game.GameColor;
 import com.starkrak.framedemo.game.GameSrc;
+
+import net.gtr.framework.rx.dialog.NativeMessageDialog;
+import net.gtr.framework.util.Loger;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -24,44 +29,53 @@ import androidx.core.content.ContextCompat;
 
 @LayoutID(R.layout.activity_play)
 public class PlayActivity extends BaseActivity {
-
-
     private final GameBall[] gameBalls = new GameBall[6];
-
     private final GameBox[] gameBoxes = new GameBox[6];
 
     private TextView title;
+    private View successView;
+    private ImageView ivIcon;
+    private PointF dragTouchPoint = new PointF();
+    private DragListener ballDragListener = dragItem -> {
+        MyDragShadowBuilder dragShadowBuilder = new MyDragShadowBuilder(dragItem,
+                new Point(((int) (dragTouchPoint.x - dragItem.getX())), (int) (dragTouchPoint.y - dragItem.getY())));
+        Point shadowSize = new Point();
+        Point shadowTouchPoint = new Point();
+        dragShadowBuilder.onProvideShadowMetrics(shadowSize, shadowTouchPoint);
+        dragItem.startDrag(null, dragShadowBuilder, dragItem.getTag(), 0);
+    };
+
+    @SuppressLint("ClickableViewAccessibility")
+    private View.OnTouchListener onBallTouchListener = (v, event) -> {
+        try {
+            Loger.i("onBallTouchListener getAction" + event.getAction());
+            dragTouchPoint.set(event.getX(), event.getY());
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                Loger.i("onBallTouchListener ballDragListener startDrag");
+                ballDragListener.startDrag(v);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //控件初始化
-        PointF dragTouchPoint = new PointF();
-        DragListener dragListener = dragItem -> {
-            MyDragShadowBuilder dragShadowBuilder = new MyDragShadowBuilder(dragItem,
-                    new Point(((int) (dragTouchPoint.x - dragItem.getX())), (int) (dragTouchPoint.y - dragItem.getY())));
-            Point shadowSize = new Point();
-            Point shadowTouchPoint = new Point();
-            dragShadowBuilder.onProvideShadowMetrics(shadowSize, shadowTouchPoint);
-            dragItem.startDrag(null, dragShadowBuilder, dragItem.getTag(), 0);
-        };
-        @SuppressLint("ClickableViewAccessibility") View.OnTouchListener onTouchListener = (v, event) -> {
-            try {
-                dragTouchPoint.set(event.getX(), event.getY());
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    dragListener.startDrag(v);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return false;
-        };
-        gameBalls[0] = new GameBall(findViewById(R.id.item1View));
-        gameBalls[1] = new GameBall(findViewById(R.id.item2View));
-        gameBalls[2] = new GameBall(findViewById(R.id.item3View));
-        gameBalls[3] = new GameBall(findViewById(R.id.item4View));
-        gameBalls[4] = new GameBall(findViewById(R.id.item5View));
-        gameBalls[5] = new GameBall(findViewById(R.id.item6View));
+        title = findViewById(R.id.title);
+        successView = findViewById(R.id.successView);
+        ivIcon = findViewById(R.id.ivIcon);
+        View btnReplay = findViewById(R.id.btnReplay);
+        View btnNext = findViewById(R.id.btnNext);
+        View ballLayout = findViewById(R.id.ballLayout);
+        gameBalls[0] = new GameBall(findViewById(R.id.item1View), GameColor.Red);
+        gameBalls[1] = new GameBall(findViewById(R.id.item2View), GameColor.Yellow);
+        gameBalls[2] = new GameBall(findViewById(R.id.item3View), GameColor.Green);
+        gameBalls[3] = new GameBall(findViewById(R.id.item4View), GameColor.SkyBlue);
+        gameBalls[4] = new GameBall(findViewById(R.id.item5View), GameColor.DarkBlue);
+        gameBalls[5] = new GameBall(findViewById(R.id.item6View), GameColor.Pink);
 
         gameBoxes[0] = new GameBox(findViewById(R.id.answerBox1));
         gameBoxes[1] = new GameBox(findViewById(R.id.answerBox2));
@@ -70,17 +84,28 @@ public class PlayActivity extends BaseActivity {
         gameBoxes[4] = new GameBox(findViewById(R.id.answerBox5));
         gameBoxes[5] = new GameBox(findViewById(R.id.answerBox6));
 
-        List<DragListManager.ActionView> actionViews = initActionViews();
+        List<DragListManager.ActionView> actionViews = initActionViewsForGameBalls();
         DragListManager dragManager = new DragListManager(this, actionViews);
         for (GameBall gameBall : gameBalls) {
-            gameBall.getView().setOnTouchListener(onTouchListener);
+            gameBall.getView().setOnTouchListener(onBallTouchListener);
             gameBall.getView().setOnDragListener(dragManager);
         }
-        title = findViewById(R.id.title);
-        findViewById(R.id.ballLayout).setOnDragListener(dragManager);
+        ballLayout.setOnDragListener(dragManager);
         findViewById(R.id.mainView).setOnDragListener(dragManager);
         //初始化题目
-        renderGamePage(createTest());
+        renderGameViewBySrc(createTest());
+        btnNext.setOnClickListener(v -> {
+            NativeMessageDialog nativeMessageDialog = new NativeMessageDialog(getContext());
+            nativeMessageDialog.setDialogMessage("开发中");
+            nativeMessageDialog.show();
+        });
+        btnReplay.setOnClickListener(v -> {
+            for (GameBox box : gameBoxes) {
+                box.setGameBall(null);
+                box.invalidate();
+            }
+            checkGame();
+        });
     }
 
     private GameSrc createTest() {
@@ -94,12 +119,12 @@ public class PlayActivity extends BaseActivity {
         answer[4] = new GameSrc.Answer(ContextCompat.getDrawable(this, R.mipmap.a5_0), GameColor.Yellow);
         answer[5] = new GameSrc.Answer(ContextCompat.getDrawable(this, R.mipmap.a6_0), GameColor.DarkBlue);
         gameSrc.answer = answer;
-        gameSrc.setGameHint("请把你认为有关联的图片整理起来");
+        gameSrc.setGameHint("请观察图片，把合适的圆点放到右侧方格中");
         return gameSrc;
     }
 
 
-    private void renderGamePage(@NonNull GameSrc gameSrc) {
+    private void renderGameViewBySrc(@NonNull GameSrc gameSrc) {
         title.setTag(gameSrc.getHint());
         title.setText(gameSrc.getHint());
         ImageView gamePageView = findViewById(R.id.gamePageView);
@@ -110,7 +135,7 @@ public class PlayActivity extends BaseActivity {
         }
     }
 
-    private List<DragListManager.ActionView> initActionViews() {
+    private List<DragListManager.ActionView> initActionViewsForGameBalls() {
         List<DragListManager.ActionView> list = new ArrayList<>();
         for (GameBox gameBox : gameBoxes) {
             DragListManager.ActionView actionView = new DragListManager.ActionView(gameBox.getView(), new DragListManager.ActionView.OnDragListener() {
@@ -131,30 +156,44 @@ public class PlayActivity extends BaseActivity {
         return list;
     }
 
+
     private void checkGame() {
+        boolean allFilled = true;
         for (GameBox gameBox : gameBoxes) {
             if (!gameBox.isFilled()) {
-                onFilling();
-                return;
+                allFilled = false;
             }
         }
-        onComplete();
+        if (allFilled) {
+            onComplete();
+        } else {
+            onFilling();
+        }
     }
+
 
     //填写中
     private void onFilling() {
-        title.setText((String) title.getTag());
+        successView.setVisibility(View.GONE);
+        ivIcon.setVisibility(View.GONE);
     }
 
+    //填写完成
     private void onComplete() {
         for (GameBox gameBox : gameBoxes) {
             if (!gameBox.isRight()) {
-                title.setText("错误");
+                View contentView = View.inflate(getContext(), R.layout.simple_error_toast_layout_, null);
+                Toast toast = new Toast(getContext());
+                toast.setView(contentView);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.show();
                 return;
             }
         }
         //正确
-        title.setText("正确");
+        successView.setVisibility(View.VISIBLE);
+        ivIcon.setVisibility(View.VISIBLE);
     }
 
 }

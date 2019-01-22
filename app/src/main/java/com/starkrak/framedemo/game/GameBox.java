@@ -5,42 +5,54 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.starkrak.framedemo.App;
-import com.starkrak.framedemo.R;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
+import androidx.core.content.ContextCompat;
 
 public class GameBox implements GameView {
     private GameBall gameBall;
     private GameBall gameBallPrv;
     private View view;
+    private ImageView imageView;
+    private View colorView;
 
     public View getView() {
         return view;
     }
 
     public ImageView getImageView() {
-        return (ImageView) ((ViewGroup) view).getChildAt(0);
+        return imageView;
     }
 
     private GameColor rightColor;
 
     public GameBox(@NonNull View view) {
         this.view = view;
+        this.imageView = (ImageView) ((ViewGroup) view).getChildAt(0);
+        this.colorView = ((ViewGroup) view).getChildAt(1);
     }
 
     public void setRightColor(@NonNull GameColor color) {
         this.rightColor = color;
     }
 
-    public void setGameBall(GameBall gameBall) {
-        gameBall.used = true;
+    public void setGameBall(@Nullable GameBall gameBall) {
+        if (gameBall != null) {
+            gameBall.used = true;
+        }
         clear();
         this.gameBall = gameBall;
+        this.imageView.setTag(this);
     }
 
     public boolean isFilled() {
         return this.gameBall != null;
+    }
+
+    public GameBall getGameBall() {
+        return gameBall;
     }
 
     private void clear() {
@@ -57,35 +69,15 @@ public class GameBox implements GameView {
         view.setEnabled(gameBall != null);
         if (gameBall != null) {
             gameBall.invalidate();
-            switch (gameBall.gameColor) {
-                case Red:
-                    view.setBackgroundColor(App.getContext().getResources().getColor(R.color.main1_bg));
-                    break;
-                case SkyBlue:
-                    view.setBackgroundColor(App.getContext().getResources().getColor(R.color.main4_bg));
-                    break;
-                case Pink:
-                    view.setBackgroundColor(App.getContext().getResources().getColor(R.color.main6_bg));
-                    break;
-                case Green:
-                    view.setBackgroundColor(App.getContext().getResources().getColor(R.color.main3_bg));
-                    break;
-                case DarkBlue:
-                    view.setBackgroundColor(App.getContext().getResources().getColor(R.color.main5_bg));
-                    break;
-                case Yellow:
-                    view.setBackgroundColor(App.getContext().getResources().getColor(R.color.main2_bg));
-                    break;
-                default:
-                    view.setBackgroundColor(App.getContext().getResources().getColor(android.R.color.white));
-                    break;
-            }
+            //view.setBackgroundColor(App.getContext().getResources().getColor(android.R.color.white));
+            colorView.setBackground(ContextCompat.getDrawable(App.getContext(), gameBall.getGameColor().colorMin));
             view.setOnClickListener(v -> {
                 clear();
                 invalidate();
             });
         } else {
-            view.setBackgroundColor(App.getContext().getResources().getColor(android.R.color.white));
+            colorView.setBackground(null);
+           // view.setBackgroundColor(App.getContext().getResources().getColor(android.R.color.white));
         }
         if (this.gameBallPrv != null) {
             this.gameBallPrv.invalidate();
@@ -96,9 +88,9 @@ public class GameBox implements GameView {
         if (gameBall == null) {
             return false;
         }
-        if (gameBall.gameColor == null) {
+        if (gameBall.getGameColor() == null) {
             return false;
         }
-        return rightColor == gameBall.gameColor;
+        return rightColor == gameBall.getGameColor();
     }
 }
