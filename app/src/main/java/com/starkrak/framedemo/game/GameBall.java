@@ -64,7 +64,7 @@ public class GameBall extends GameView {
                 proxyView.setVisibility(View.VISIBLE);
                 Loger.i("平移动画  从" + start.x + "," + start.y + ",平移到" + centerPoint.x + "," + centerPoint.y);
                 Animation translateAnimation = new TranslateAnimation(start.x, centerPoint.x + 30, start.y - 48, centerPoint.y - 24);
-                translateAnimation.setDuration(500);//动画持续的时间为1.5s
+                translateAnimation.setDuration(400);//动画持续的时间为1.5s
                 proxyView.setAnimation(translateAnimation);//给imageView添加的动画效果
                 translateAnimation.setAnimationListener(new Animation.AnimationListener() {
                     @Override

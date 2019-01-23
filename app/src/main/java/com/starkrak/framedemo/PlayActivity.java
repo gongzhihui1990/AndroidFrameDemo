@@ -148,7 +148,7 @@ public class PlayActivity extends BaseActivity {
             gameBoxes[i].setRightColor(gameSrc.answer[i].answerColor);
             gameBoxes[i].setGameBall(gameBalls[i]);
             gameBoxes[i].invalidate();
-            gameBoxes[i].initDelay((i+1)*50);
+            gameBoxes[i].initDelay((i+1)*200);
         }
 
     }
