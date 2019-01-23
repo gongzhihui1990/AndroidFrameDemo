@@ -3,6 +3,7 @@ package com.starkrak.framedemo;
 import android.annotation.SuppressLint;
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -70,12 +71,12 @@ public class PlayActivity extends BaseActivity {
         View btnReplay = findViewById(R.id.btnReplay);
         View btnNext = findViewById(R.id.btnNext);
         View ballLayout = findViewById(R.id.ballLayout);
-        gameBalls[0] = new GameBall(findViewById(R.id.item1View), GameColor.Red);
-        gameBalls[1] = new GameBall(findViewById(R.id.item2View), GameColor.Yellow);
-        gameBalls[2] = new GameBall(findViewById(R.id.item3View), GameColor.Green);
-        gameBalls[3] = new GameBall(findViewById(R.id.item4View), GameColor.SkyBlue);
-        gameBalls[4] = new GameBall(findViewById(R.id.item5View), GameColor.DarkBlue);
-        gameBalls[5] = new GameBall(findViewById(R.id.item6View), GameColor.Pink);
+        gameBalls[0] = new GameBall(findViewById(R.id.item1View), GameColor.Red, findViewById(R.id.proxyImage1));
+        gameBalls[1] = new GameBall(findViewById(R.id.item2View), GameColor.Yellow, findViewById(R.id.proxyImage2));
+        gameBalls[2] = new GameBall(findViewById(R.id.item3View), GameColor.Green, findViewById(R.id.proxyImage3));
+        gameBalls[3] = new GameBall(findViewById(R.id.item4View), GameColor.SkyBlue, findViewById(R.id.proxyImage4));
+        gameBalls[4] = new GameBall(findViewById(R.id.item5View), GameColor.DarkBlue, findViewById(R.id.proxyImage5));
+        gameBalls[5] = new GameBall(findViewById(R.id.item6View), GameColor.Pink, findViewById(R.id.proxyImage6));
 
         gameBoxes[0] = new GameBox(findViewById(R.id.answerBox1));
         gameBoxes[1] = new GameBox(findViewById(R.id.answerBox2));
@@ -106,6 +107,19 @@ public class PlayActivity extends BaseActivity {
             }
             checkGame();
         });
+        findViewById(R.id.mainView).post(this::printViews);
+
+    }
+
+
+    private void printViews() {
+        for (GameBall ball : gameBalls) {
+            View view = ball.getView();
+            Rect rect = new Rect();
+            Point point = new Point();
+            view.getGlobalVisibleRect(rect, point);
+            ball.setCenterPoint(point);
+        }
     }
 
     private GameSrc createTest() {
@@ -132,7 +146,11 @@ public class PlayActivity extends BaseActivity {
         for (int i = 0; i < gameSrc.answer.length && i < gameBoxes.length; i++) {
             gameBoxes[i].getImageView().setImageDrawable(gameSrc.answer[i].answerDrawable);
             gameBoxes[i].setRightColor(gameSrc.answer[i].answerColor);
+            gameBoxes[i].setGameBall(gameBalls[i]);
+            gameBoxes[i].invalidate();
+            gameBoxes[i].initDelay((i+1)*50);
         }
+
     }
 
     private List<DragListManager.ActionView> initActionViewsForGameBalls() {
@@ -159,9 +177,23 @@ public class PlayActivity extends BaseActivity {
 
     private void checkGame() {
         boolean allFilled = true;
+        for (GameBall ball : gameBalls) {
+            if (!ball.isInit()) {
+                allFilled = false;
+            }
+            if (!allFilled) {
+                break;
+            }
+        }
         for (GameBox gameBox : gameBoxes) {
+            if (!gameBox.isInit()) {
+                allFilled = false;
+            }
             if (!gameBox.isFilled()) {
                 allFilled = false;
+            }
+            if (!allFilled) {
+                break;
             }
         }
         if (allFilled) {

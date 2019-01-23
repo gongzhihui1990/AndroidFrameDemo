@@ -4,4 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="round_mini_size">6dp</dimen>
     <dimen name="round_mini_stroke">1.5dp</dimen>
+    <dimen name="round_padding">12dp</dimen>
+    <dimen name="round_size">52dp</dimen>
 </resources>

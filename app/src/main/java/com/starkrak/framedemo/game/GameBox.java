@@ -11,12 +11,16 @@ import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import androidx.core.content.ContextCompat;
 
-public class GameBox implements GameView {
+public class GameBox extends GameView {
     private GameBall gameBall;
     private GameBall gameBallPrv;
     private View view;
     private ImageView imageView;
     private View colorView;
+
+    public View getColorView() {
+        return colorView;
+    }
 
     public View getView() {
         return view;
@@ -40,7 +44,7 @@ public class GameBox implements GameView {
 
     public void setGameBall(@Nullable GameBall gameBall) {
         if (gameBall != null) {
-            gameBall.used = true;
+            gameBall.use();
         }
         clear();
         this.gameBall = gameBall;
@@ -58,7 +62,7 @@ public class GameBox implements GameView {
     private void clear() {
         if (this.gameBall != null) {
             this.gameBallPrv = this.gameBall;
-            this.gameBallPrv.used = false;
+            this.gameBallPrv.release(this);
             this.gameBall = null;
         }
     }
@@ -69,7 +73,6 @@ public class GameBox implements GameView {
         view.setEnabled(gameBall != null);
         if (gameBall != null) {
             gameBall.invalidate();
-            //view.setBackgroundColor(App.getContext().getResources().getColor(android.R.color.white));
             colorView.setBackground(ContextCompat.getDrawable(App.getContext(), gameBall.getGameColor().colorMin));
             view.setOnClickListener(v -> {
                 clear();
@@ -77,7 +80,6 @@ public class GameBox implements GameView {
             });
         } else {
             colorView.setBackground(null);
-           // view.setBackgroundColor(App.getContext().getResources().getColor(android.R.color.white));
         }
         if (this.gameBallPrv != null) {
             this.gameBallPrv.invalidate();
@@ -93,4 +95,40 @@ public class GameBox implements GameView {
         }
         return rightColor == gameBall.getGameColor();
     }
+
+    @Override
+    public void init() {
+        if (gameBall != null) {
+            gameBall.init();
+        }
+        setGameBall(null);
+        invalidate();
+        super.init();
+
+    }
+    public void initDelay(int delayMillis) {
+        getView().postDelayed(this::init,delayMillis);
+    }
+//    private int delayMillis = 200;
+
+//    @Override
+//    public void init() {
+//        if (gameBall != null) {
+//            gameBall.init();
+//            getView().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    setGameBall(null);
+//                    invalidate();
+//                }
+//            }, delayMillis);
+//
+//        }
+//        super.init();
+//    }
+//
+//    public void initDelay(int delayMillis) {
+//        this.delayMillis = delayMillis;
+//        init();
+//    }
 }

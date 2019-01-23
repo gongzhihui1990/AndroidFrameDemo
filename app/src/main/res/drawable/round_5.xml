@@ -10,8 +10,14 @@
         android:width="2dp"
         android:color="@android:color/black" />
 
+    <padding
+        android:top="@dimen/round_padding"
+        android:left="@dimen/round_padding"
+        android:right="@dimen/round_padding"
+        android:bottom="@dimen/round_padding"
+        />
     <size
-        android:width="40dp"
-        android:height="40dp" />
+        android:width="@dimen/round_size"
+        android:height="@dimen/round_size" />
 
 </shape>
