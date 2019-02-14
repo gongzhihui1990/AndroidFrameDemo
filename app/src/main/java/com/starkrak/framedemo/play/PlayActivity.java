@@ -1,4 +1,4 @@
-package com.starkrak.framedemo;
+package com.starkrak.framedemo.play;
 
 import android.annotation.SuppressLint;
 import android.graphics.Point;
@@ -12,10 +12,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.starkrak.framedemo.game.GameBall;
-import com.starkrak.framedemo.game.GameBox;
-import com.starkrak.framedemo.game.GameColor;
-import com.starkrak.framedemo.game.GameSrc;
+import com.starkrak.framedemo.BaseActivity;
+import com.starkrak.framedemo.DragListManager;
+import com.starkrak.framedemo.DragListener;
+import com.starkrak.framedemo.LayoutID;
+import com.starkrak.framedemo.MyDragShadowBuilder;
+import com.starkrak.framedemo.R;
+import com.starkrak.framedemo.play.GameBall;
+import com.starkrak.framedemo.play.GameBox;
+import com.starkrak.framedemo.play.GameColor;
+import com.starkrak.framedemo.play.GameSrc;
 
 import net.gtr.framework.rx.dialog.NativeMessageDialog;
 import net.gtr.framework.util.Loger;
@@ -28,6 +34,9 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+/**
+ * @author caroline
+ */
 @LayoutID(R.layout.activity_play)
 public class PlayActivity extends BaseActivity {
     private final GameBall[] gameBalls = new GameBall[6];

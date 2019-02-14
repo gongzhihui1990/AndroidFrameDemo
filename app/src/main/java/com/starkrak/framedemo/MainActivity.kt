@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater
+import com.starkrak.framedemo.play.PlayActivity
+import com.starkrak.framedemo.postboy.PostBoyActivity
 import com.starkrak.framedemo.widget.MaterialHeader
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
@@ -19,16 +21,23 @@ import net.gtr.framework.rx.RxHelper
 class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        RxHelper.bindOnUI(Observable
-                .just("year 2019")
-                .map { s -> "$s.Written by GongZhiHui" }
-                .map { s ->
-                    if (s.length > 1) {
-                        throw Exception(s)
-                    }
-                    s
-                }, object : ProgressObserverImplementation<String>(this) {
-        })
+//        RxHelper.bindOnUI(Observable
+//                .just("year 2019")
+//                .map { s -> "$s.Written " +
+//                        "" +
+//                        "" +
+//                        "、" +
+//                        "" +
+//                        "" +
+//                        "" +
+//                        " GongZhiHui" }
+//                .map { s ->
+//                    if (s.length > 1) {
+//                        throw Exception(s)
+//                    }
+//                    s
+//                }, object : ProgressObserverImplementation<String>(this) {
+//        })
 
         val creator = DefaultRefreshHeaderCreater { context, layout ->
             layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white)
@@ -62,6 +71,7 @@ class MainActivity : BaseActivity() {
         banner.setDelayTime(3000)
         banner.start()
         funView1.setOnClickListener { startActivity(Intent(this, PlayActivity::class.java)) }
+        funView2.setOnClickListener { startActivity(Intent(this, PostBoyActivity::class.java)) }
     }
 
     override fun onResume() {

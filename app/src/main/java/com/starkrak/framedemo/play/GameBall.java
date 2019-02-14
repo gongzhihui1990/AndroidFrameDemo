@@ -1,4 +1,4 @@
-package com.starkrak.framedemo.game;
+package com.starkrak.framedemo.play;
 
 import android.graphics.Point;
 import android.graphics.Rect;

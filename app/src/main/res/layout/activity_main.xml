@@ -97,16 +97,17 @@
                         android:layout_weight="1"
                         android:background="@color/main1"
                         android:gravity="center"
-                        android:text="3-5岁"
+                        android:text="3-5岁逻辑游戏"
                         android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="0dp"
+                        android:id="@+id/funView2"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:background="@color/main2"
-                        android:text="二"
+                        android:text="PostBoy"
                         android:textSize="20sp" />
                 </LinearLayout>
 
