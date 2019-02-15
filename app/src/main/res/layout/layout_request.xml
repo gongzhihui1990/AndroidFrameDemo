@@ -67,7 +67,7 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="120dp"
                 android:background="@android:color/white">
 
                 <TextView
@@ -75,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Edit heads of Request"
-                    android:minHeight="200dp"
+                    android:minHeight="120dp"
                     android:padding="8dp" />
             </ScrollView>
 
@@ -132,7 +132,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="120dp"
             android:background="@android:color/white">
 
             <TextView
@@ -140,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Edit body of Request"
-                android:minHeight="200dp"
+                android:minHeight="120dp"
                 android:padding="8dp" />
         </ScrollView>
 

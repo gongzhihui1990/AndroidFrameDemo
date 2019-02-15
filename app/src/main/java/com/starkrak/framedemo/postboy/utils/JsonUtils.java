@@ -1,5 +1,8 @@
 package com.starkrak.framedemo.postboy.utils;
 
+/**
+ * @author caroline
+ */
 public class JsonUtils
 {
     /**

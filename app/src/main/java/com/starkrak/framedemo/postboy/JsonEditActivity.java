@@ -3,9 +3,9 @@ package com.starkrak.framedemo.postboy;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.starkrak.framedemo.BaseActivity;
 import com.starkrak.framedemo.LayoutID;
@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 @LayoutID(R.layout.activity_edit_json)
 public class JsonEditActivity extends BaseActivity {
 
-    EditText tvContent;
+    TextView tvContent;
     Button btnScan;
     Button btnComplete;
 

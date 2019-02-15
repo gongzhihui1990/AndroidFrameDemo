@@ -32,6 +32,7 @@ public class RequestFragment extends BaseMvpFragment<RequestFragmentPresenter> i
     private View btnSend;
     private TextView tvHost;
     private TextView tvPath;
+    private TextView tvHeads;
     private TextView tvBody;
     private TextView postType;
     private View svBody;
@@ -52,6 +53,7 @@ public class RequestFragment extends BaseMvpFragment<RequestFragmentPresenter> i
         btnSend = view.findViewById(R.id.btnSend);
         tvPath = view.findViewById(R.id.tvPath);
         tvHost = view.findViewById(R.id.tvHost);
+        tvHeads = view.findViewById(R.id.tvHeads);
         tvBody = view.findViewById(R.id.tvBody);
         btnSend.setOnClickListener(v -> mPresenter.send());
         tvPath.setText("/user/login");
@@ -68,6 +70,11 @@ public class RequestFragment extends BaseMvpFragment<RequestFragmentPresenter> i
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Map<String, String> heads = new HashMap<>(1);
+        heads.put("Content-Type", "application/json");
+        heads.put("App-Version", BuildConfig.VERSION_NAME);
+        heads.put("App-Type", "android");
+        setHead(heads);
         tvBody.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), JsonEditActivity.class);
             intent.putExtra(String.class.getName(), tvBody.getTag().toString());
@@ -116,17 +123,29 @@ public class RequestFragment extends BaseMvpFragment<RequestFragmentPresenter> i
     }
 
     private void setBody(String srcData) {
+        srcData = srcData.replace("\n", "")
+                //.replace(" ", "")
+                .replace("\t", "")
+        ;
         tvBody.setTag(srcData);
         tvBody.setText(srcData);
     }
 
+    private void setHead(Map<String, String> headsMap) {
+        StringBuilder heads = new StringBuilder();
+        for (Map.Entry<String, String> entry : headsMap.entrySet()) {
+            heads.append(entry.getKey())
+                    .append(":")
+                    .append(entry.getValue())
+                    .append("\n");
+        }
+        tvHeads.setText(heads.toString());
+        tvHeads.setTag(headsMap);
+    }
+
     @Override
     public Map<String, String> getHeads() {
-        Map<String, String> heads = new HashMap<>(1);
-        heads.put("Content-Type", "application/json");
-        heads.put("App-Version", BuildConfig.VERSION_NAME);
-        heads.put("Content-Type", "android");
-        return heads;
+        return (Map<String, String>) tvHeads.getTag();
     }
 
 
