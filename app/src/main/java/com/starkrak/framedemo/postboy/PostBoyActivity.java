@@ -22,6 +22,8 @@ import androidx.viewpager.widget.ViewPager;
 @LayoutID(R.layout.activity_post_boy)
 public class PostBoyActivity extends BaseActivity {
 
+    PostExecutCallBack postExecutCallBack;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,11 +39,31 @@ public class PostBoyActivity extends BaseActivity {
             i++;
         }
         List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new RequestFragment());
-        fragmentList.add(new ResponseFragment());
+        RequestFragment requestFragment = new RequestFragment();
+        ResponseFragment responseFragment = new ResponseFragment();
+
+        fragmentList.add(requestFragment);
+        fragmentList.add(responseFragment);
         ViewPagerAdapter adapter = new ViewPagerAdapter(this.getSupportFragmentManager(), this, fragmentList, tabTitleArray);
         pager.setAdapter(adapter);
         tabs.setupWithViewPager(pager);
+        postExecutCallBack = new PostExecutCallBack() {
+            @Override
+            public void startExecute() {
+                //TODO
+            }
+
+            @Override
+            public void endExecute() {
+                pager.setCurrentItem(1);
+            }
+
+            @Override
+            public void handleResponse(AppResponse response) {
+                responseFragment.handleResponse(response);
+            }
+        };
+        requestFragment.setPostCallback(postExecutCallBack);
 
     }
 
@@ -64,5 +86,13 @@ public class PostBoyActivity extends BaseActivity {
         public String getTitle() {
             return title;
         }
+    }
+
+    interface PostExecutCallBack {
+        void startExecute();
+
+        void endExecute();
+
+        void handleResponse(AppResponse response);
     }
 }

@@ -12,7 +12,6 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,34 +48,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="Headers"
+            android:text="Head"
             android:textColor="@android:color/black"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="0dp"
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="16dp"
-            tools:text="..." />
-
-        <TextView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="16dp"
+            android:layout_margin="16dp"
             android:background="@color/colorAccent"
-            android:gravity="center"
-            android:text="+"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:padding="1dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:id="@+id/tvHeads"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Edit heads of Request"
+                    android:minHeight="200dp"
+                    android:padding="8dp" />
+            </ScrollView>
+
+        </FrameLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -87,19 +90,20 @@
 
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:padding="16dp"
             android:text="Body"
             android:textColor="@android:color/black"
             android:textStyle="bold" />
 
         <RadioGroup
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="48dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:orientation="horizontal"
+            android:visibility="invisible">
 
             <RadioButton
                 android:layout_width="wrap_content"
@@ -126,14 +130,20 @@
         android:background="@color/colorAccent"
         android:padding="1dp">
 
-        <TextView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white"
-            android:id="@+id/tvBody"
-            android:hint="Edit body of Request"
-            android:minHeight="200dp"
-            android:padding="8dp" />
+            android:layout_height="200dp"
+            android:background="@android:color/white">
+
+            <TextView
+                android:id="@+id/tvBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Edit body of Request"
+                android:minHeight="200dp"
+                android:padding="8dp" />
+        </ScrollView>
+
     </FrameLayout>
 
     <View
@@ -142,18 +152,18 @@
         android:layout_weight="1" />
 
     <LinearLayout
-        android:background="@color/colorAccent"
         android:layout_width="match_parent"
-        android:paddingTop="1dp"
-        android:layout_height="48dp">
+        android:layout_height="48dp"
+        android:background="@color/colorAccent"
+        android:paddingTop="1dp">
 
         <TextView
+            android:id="@+id/postType"
             android:layout_width="0dp"
-            android:background="@android:color/white"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@android:color/white"
             android:gravity="center"
-            android:textColor="@color/colorAccent"
             android:text="POST" />
 
         <TextView

@@ -16,6 +16,7 @@ public interface RequestFrementContract {
         String getBody();
 
         Map<String, String> getHeads();
+        PostBoyActivity.PostExecutCallBack getPostExecutCallBack();
     }
     interface Presenter extends BasePresenter<View>{
 

@@ -29,8 +29,7 @@ public class BaseApiRetrofit {
     private final OkHttpClient mClient;
     private final OkHttpClient mFileClient;
 
-
-    BaseApiRetrofit() {
+    public BaseApiRetrofit() {
         //cache
         File httpCacheDir = new File(BaseApp.getContext().getCacheDir(), "response");
         // 10 MiB
