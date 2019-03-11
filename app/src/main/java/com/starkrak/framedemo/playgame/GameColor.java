@@ -1,10 +1,9 @@
-package com.starkrak.framedemo.play;
+package com.starkrak.framedemo.playgame;
 
 import com.starkrak.framedemo.R;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
 
 public enum GameColor {
     Red(R.color.main1,R.drawable.round_1_mini),

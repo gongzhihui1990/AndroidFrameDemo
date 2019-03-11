@@ -46,6 +46,17 @@ public class RequestFragment extends BaseMvpFragment<RequestFragmentPresenter> i
         getFragmentComponent().inject(this);
     }
 
+
+    private void setHost(String host) {
+        tvHost.setText("/{" + "dev" + "}");
+        tvHost.setTag(host);
+    }
+
+    private void setPath(String path) {
+        tvPath.setText(path);
+        tvPath.setTag(path);
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -56,10 +67,8 @@ public class RequestFragment extends BaseMvpFragment<RequestFragmentPresenter> i
         tvHeads = view.findViewById(R.id.tvHeads);
         tvBody = view.findViewById(R.id.tvBody);
         btnSend.setOnClickListener(v -> mPresenter.send());
-        tvPath.setText("/user/login");
-        tvPath.setTag("/user/login");
-        tvHost.setText("/{" + "dev" + "}");
-        tvHost.setTag("http://10.10.10.166:1881");
+        setPath("/user/login");
+        setHost("http://10.10.10.166:1881");
         try {
             JSONObject body = new JSONObject();
             JSONObject bodyObject = new JSONObject();
@@ -71,9 +80,7 @@ public class RequestFragment extends BaseMvpFragment<RequestFragmentPresenter> i
             e.printStackTrace();
         }
         Map<String, String> heads = new HashMap<>(1);
-        heads.put("Content-Type", "application/json");
-        heads.put("App-Version", BuildConfig.VERSION_NAME);
-        heads.put("App-Type", "android");
+        setHeads(heads);
         setHead(heads);
         tvBody.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), JsonEditActivity.class);
@@ -148,6 +155,11 @@ public class RequestFragment extends BaseMvpFragment<RequestFragmentPresenter> i
         return (Map<String, String>) tvHeads.getTag();
     }
 
+    private void setHeads(Map<String, String> heads) {
+        heads.put("Content-Type", "application/json");
+        heads.put("App-Version", BuildConfig.VERSION_NAME);
+        heads.put("App-Type", "android");
+    }
 
     public void setPostCallback(PostBoyActivity.PostExecutCallBack callback) {
         this.postExecutCallBack = callback;

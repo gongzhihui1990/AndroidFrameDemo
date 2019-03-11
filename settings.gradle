@@ -1,1 +1,1 @@
-include ':app', ':androidLibrary', ':blurkit'
+include ':app', ':androidLibrary', ':blurkit', ':libzxing'

@@ -6,16 +6,16 @@ import android.os.Bundle
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater
-import com.starkrak.framedemo.play.PlayActivity
+import com.starkrak.framedemo.logboy.LogBoyActivity
+import com.starkrak.framedemo.playgame.PlayActivity
 import com.starkrak.framedemo.postboy.PostBoyActivity
+import com.starkrak.framedemo.tikmother.TikTokActivity
+import com.starkrak.framedemo.videogirl.VideoGirlActivity
 import com.starkrak.framedemo.widget.MaterialHeader
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import com.youth.banner.loader.ImageLoader
-import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
-import net.gtr.framework.rx.ProgressObserverImplementation
-import net.gtr.framework.rx.RxHelper
 
 @LayoutID(R.layout.activity_main)
 class MainActivity : BaseActivity() {
@@ -72,6 +72,9 @@ class MainActivity : BaseActivity() {
         banner.start()
         funView1.setOnClickListener { startActivity(Intent(this, PlayActivity::class.java)) }
         funView2.setOnClickListener { startActivity(Intent(this, PostBoyActivity::class.java)) }
+        funView3.setOnClickListener { startActivity(Intent(this, LogBoyActivity::class.java)) }
+        funView4.setOnClickListener { startActivity(Intent(this, VideoGirlActivity::class.java)) }
+        funView5.setOnClickListener { startActivity(Intent(this, TikTokActivity::class.java)) }
     }
 
     override fun onResume() {

@@ -1,4 +1,4 @@
-package com.starkrak.framedemo.play;
+package com.starkrak.framedemo.playgame;
 
 import android.view.View;
 import android.view.ViewGroup;

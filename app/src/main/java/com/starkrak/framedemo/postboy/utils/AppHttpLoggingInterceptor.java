@@ -310,7 +310,7 @@ public class AppHttpLoggingInterceptor implements Interceptor {
 
     public interface Logger {
         /**
-         * A {@link AppHttpLoggingInterceptor.Logger} defaults output appropriate for the current platform.
+         * A {@link AppHttpLoggingInterceptor.Logger} defaults outPut appropriate for the current platform.
          */
         AppHttpLoggingInterceptor.Logger DEFAULT = new AppHttpLoggingInterceptor.Logger() {
             @Override

@@ -6,7 +6,7 @@ import android.os.Vibrator;
 import android.view.DragEvent;
 import android.view.View;
 
-import com.starkrak.framedemo.play.GameBall;
+import com.starkrak.framedemo.playgame.GameBall;
 
 import net.gtr.framework.util.Loger;
 

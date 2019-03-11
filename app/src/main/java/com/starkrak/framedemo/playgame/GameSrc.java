@@ -1,4 +1,4 @@
-package com.starkrak.framedemo.play;
+package com.starkrak.framedemo.playgame;
 
 import android.graphics.drawable.Drawable;
 

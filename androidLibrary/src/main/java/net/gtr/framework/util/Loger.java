@@ -21,11 +21,16 @@ public class Loger {
     private final static boolean DO_PRINT_STREAM = false;
     private final static boolean IS_DEBUG = true;
     static Proxy proxy;
+    static Proxy netProxy;
     static TextView proxyText;
     static Handler handler = new Handler();
 
     public static void setProxy(Proxy proxy) {
         Loger.proxy = proxy;
+    }
+
+    public static void setNetProxy(Proxy netProxy) {
+        Loger.netProxy = netProxy;
     }
 
     public static void registerTextlog(@NonNull TextView textView) {
@@ -41,6 +46,7 @@ public class Loger {
     }
 
     public static void v(String msg, String tag) {
+
         if (IS_DEBUG) {
             if (proxyText != null) {
                 postTextLog(msg);
@@ -50,7 +56,9 @@ public class Loger {
                 tag = generateTag();
                 msg = generateMsg(msg);
             }
-
+            if (netProxy != null) {
+                netProxy.v(tag, msg);
+            }
             if (proxy != null) {
                 proxy.v(tag, msg);
             } else {
@@ -75,13 +83,17 @@ public class Loger {
     }
 
     public static void i(String msg, String tag) {
+
         if (IS_DEBUG) {
             if (proxyText != null) {
-                postTextLog( msg);
+                postTextLog(msg);
             }
             if (TextUtils.isEmpty(tag)) {
                 tag = generateTag();
                 msg = generateMsg(msg);
+            }
+            if (netProxy != null) {
+                netProxy.i(tag, msg);
             }
             if (proxy != null) {
                 proxy.i(tag, msg);
@@ -117,6 +129,7 @@ public class Loger {
     }
 
     public static void w(String msg, String tag) {
+
         if (IS_DEBUG) {
             if (proxyText != null) {
                 postTextLog(msg);
@@ -124,6 +137,9 @@ public class Loger {
             if (TextUtils.isEmpty(tag)) {
                 tag = generateTag();
                 msg = generateMsg(msg);
+            }
+            if (netProxy != null) {
+                netProxy.w(tag, msg);
             }
             if (proxy != null) {
                 proxy.w(tag, msg);
@@ -138,6 +154,7 @@ public class Loger {
     }
 
     public static void e(String msg, String tag) {
+
         if (IS_DEBUG) {
             if (proxyText != null) {
                 postTextLog(msg);
@@ -145,6 +162,9 @@ public class Loger {
             if (TextUtils.isEmpty(tag)) {
                 tag = generateTag();
                 msg = generateMsg(msg);
+            }
+            if (netProxy != null) {
+                netProxy.e(tag, msg);
             }
             if (proxy != null) {
                 proxy.e(tag, msg);
@@ -159,6 +179,7 @@ public class Loger {
     }
 
     public static void a(String msg, String tag) {
+
         if (IS_DEBUG) {
             if (proxyText != null) {
                 postTextLog(msg);
@@ -166,6 +187,9 @@ public class Loger {
             if (TextUtils.isEmpty(tag)) {
                 tag = generateTag();
                 msg = generateMsg(msg);
+            }
+            if (netProxy != null) {
+                netProxy.e(tag, msg);
             }
             if (proxy != null) {
                 proxy.e(tag, msg);

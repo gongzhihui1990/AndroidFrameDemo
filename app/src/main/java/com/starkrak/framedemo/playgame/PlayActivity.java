@@ -1,4 +1,4 @@
-package com.starkrak.framedemo.play;
+package com.starkrak.framedemo.playgame;
 
 import android.annotation.SuppressLint;
 import android.graphics.Point;
@@ -18,10 +18,6 @@ import com.starkrak.framedemo.DragListener;
 import com.starkrak.framedemo.LayoutID;
 import com.starkrak.framedemo.MyDragShadowBuilder;
 import com.starkrak.framedemo.R;
-import com.starkrak.framedemo.play.GameBall;
-import com.starkrak.framedemo.play.GameBox;
-import com.starkrak.framedemo.play.GameColor;
-import com.starkrak.framedemo.play.GameSrc;
 
 import net.gtr.framework.rx.dialog.NativeMessageDialog;
 import net.gtr.framework.util.Loger;

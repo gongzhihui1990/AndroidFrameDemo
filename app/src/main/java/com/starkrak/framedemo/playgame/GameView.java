@@ -1,4 +1,4 @@
-package com.starkrak.framedemo.play;
+package com.starkrak.framedemo.playgame;
 
 public abstract class GameView implements GameViewInterface {
     private boolean isInit = false;

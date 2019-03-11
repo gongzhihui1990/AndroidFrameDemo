@@ -59,6 +59,7 @@
                 app:blk_blurRadius="12"
                 app:blk_downscaleFactor="0.12"
                 app:blk_fps="60"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -123,16 +124,18 @@
                         android:layout_weight="1"
                         android:background="@color/main3"
                         android:gravity="center"
-                        android:text="三"
+                        android:id="@+id/funView3"
+                        android:text="LogBoy"
                         android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:id="@+id/funView4"
                         android:background="@color/main4"
                         android:gravity="center"
-                        android:text="四"
+                        android:text="视频demo"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -148,7 +151,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="五"
+                        android:text="仿抖音"
+                        android:id="@+id/funView5"
                         android:textSize="20sp" />
 
                     <TextView
