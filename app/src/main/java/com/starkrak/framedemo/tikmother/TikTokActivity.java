@@ -16,6 +16,7 @@ import com.starkrak.framedemo.R;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.OrientationHelper;
@@ -66,7 +67,9 @@ public class TikTokActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position, boolean isBottom) {
-                if (mCurrentPosition == position) return;
+                if (mCurrentPosition == position) {
+                    return;
+                }
                 startPlay(position);
                 mCurrentPosition = position;
             }
@@ -75,14 +78,14 @@ public class TikTokActivity extends BaseActivity {
 
     private void startPlay(int position) {
         View itemView = mRecyclerView.getChildAt(0);
-        FrameLayout frameLayout = itemView.findViewById(R.id.container);
+        ConstraintLayout frameLayout = itemView.findViewById(R.id.container);
         Glide.with(this)
                 .load(mVideoList.get(position).getThumb())
                 //.placeholder(android.R.color.white)
                 .into(mTikTokController.getThumb());
         ViewParent parent = mIjkVideoView.getParent();
-        if (parent instanceof FrameLayout) {
-            ((FrameLayout) parent).removeView(mIjkVideoView);
+        if (parent instanceof ConstraintLayout) {
+            ((ConstraintLayout) parent).removeView(mIjkVideoView);
         }
         frameLayout.addView(mIjkVideoView);
         mIjkVideoView.setUrl(mVideoList.get(position).getUrl());

@@ -11,7 +11,7 @@ public class DataUtil {
         List<VideoBean> videoList = new ArrayList<>();
         videoList.add(new VideoBean("幸福是什么",
                 "https://cms-bucket.nosdn.127.net/171956fc3b0f493482424654b6fb14a520180418140011.jpeg",
-                "http://mov.bn.netease.com/open-movie/nos/flv/2015/12/31/SBB7M663L_hd.flv"));
+                "rtmp://10.10.10.166:1935/oflaDemo/Avengers2.mp4"));
 
         videoList.add(new VideoBean("群体性孤独",
                 "https://cms-bucket.nosdn.127.net/cb37178af1584c1588f4a01e5ecf323120180418133127.jpeg",
@@ -73,63 +73,63 @@ public class DataUtil {
      */
     public static List<VideoBean> getTikTokVideoList() {
         List<VideoBean> videoList = new ArrayList<>();
-        videoList.add(new VideoBean("",
+        videoList.add(new VideoBean("火撒上一段话",
                 "http://p9.pstatp.com/large/4c87000639ab0f21c285.jpeg",
-                "https://aweme.snssdk.com/aweme/v1/play/?video_id=97022dc18711411ead17e8dcb75bccd2&line=0&ratio=720p&media_type=4&vr_type=0"));
+                "rtmp://10.10.10.166:1935/oflaDemo/Avengers2.mp4"));
 
-        videoList.add(new VideoBean("",
+        videoList.add(new VideoBean("测试标题2",
                 "http://p1.pstatp.com/large/4bea0014e31708ecb03e.jpeg",
                 "https://aweme.snssdk.com/aweme/v1/play/?video_id=374e166692ee4ebfae030ceae117a9d0&line=0&ratio=720p&media_type=4&vr_type=0"));
 
-        videoList.add(new VideoBean("",
+        videoList.add(new VideoBean("谁家漂亮的大姑娘",
                 "http://p1.pstatp.com/large/4bb500130248a3bcdad0.jpeg",
                 "https://aweme.snssdk.com/aweme/v1/play/?video_id=8a55161f84cb4b6aab70cf9e84810ad2&line=0&ratio=720p&media_type=4&vr_type=0"));
 
-        videoList.add(new VideoBean("",
+        videoList.add(new VideoBean("谁家漂亮的小妹子",
                 "http://p9.pstatp.com/large/4b8300007d1906573584.jpeg",
                 "https://aweme.snssdk.com/aweme/v1/play/?video_id=47a9d69fe7d94280a59e639f39e4b8f4&line=0&ratio=720p&media_type=4&vr_type=0"));
 
-        videoList.add(new VideoBean("",
+        videoList.add(new VideoBean("火烧眉毛",
                 "http://p9.pstatp.com/large/4b61000b6a4187626dda.jpeg",
                 "https://aweme.snssdk.com/aweme/v1/play/?video_id=3fdb4876a7f34bad8fa957db4b5ed159&line=0&ratio=720p&media_type=4&vr_type=0"));
 
-        videoList.add(new VideoBean("",
+        videoList.add(new VideoBean("鸟笼山剿匪记",
                 "http://p9.pstatp.com/large/4c87000639ab0f21c285.jpeg",
                 "https://aweme.snssdk.com/aweme/v1/play/?video_id=97022dc18711411ead17e8dcb75bccd2&line=0&ratio=720p&media_type=4&vr_type=0"));
 
-        videoList.add(new VideoBean("",
+        videoList.add(new VideoBean("鹿皮书上走",
                 "http://p1.pstatp.com/large/4bea0014e31708ecb03e.jpeg",
                 "https://aweme.snssdk.com/aweme/v1/play/?video_id=374e166692ee4ebfae030ceae117a9d0&line=0&ratio=720p&media_type=4&vr_type=0"));
 
-        videoList.add(new VideoBean("",
+        videoList.add(new VideoBean("两个女人都搞不定",
                 "http://p1.pstatp.com/large/4bb500130248a3bcdad0.jpeg",
                 "https://aweme.snssdk.com/aweme/v1/play/?video_id=8a55161f84cb4b6aab70cf9e84810ad2&line=0&ratio=720p&media_type=4&vr_type=0"));
 
-        videoList.add(new VideoBean("",
+        videoList.add(new VideoBean("哥是老中医，专治吹牛逼",
                 "http://p9.pstatp.com/large/4b8300007d1906573584.jpeg",
                 "https://aweme.snssdk.com/aweme/v1/play/?video_id=47a9d69fe7d94280a59e639f39e4b8f4&line=0&ratio=720p&media_type=4&vr_type=0"));
 
-        videoList.add(new VideoBean("",
+        videoList.add(new VideoBean("开个方子，补补元气",
                 "http://p9.pstatp.com/large/4b61000b6a4187626dda.jpeg",
                 "https://aweme.snssdk.com/aweme/v1/play/?video_id=3fdb4876a7f34bad8fa957db4b5ed159&line=0&ratio=720p&media_type=4&vr_type=0"));
 
-        videoList.add(new VideoBean("",
+        videoList.add(new VideoBean("岳老板有恋父情节",
                 "http://p9.pstatp.com/large/4c87000639ab0f21c285.jpeg",
                 "https://aweme.snssdk.com/aweme/v1/play/?video_id=97022dc18711411ead17e8dcb75bccd2&line=0&ratio=720p&media_type=4&vr_type=0"));
 
-        videoList.add(new VideoBean("",
+        videoList.add(new VideoBean("照方抓药按时吃药",
                 "http://p1.pstatp.com/large/4bea0014e31708ecb03e.jpeg",
                 "https://aweme.snssdk.com/aweme/v1/play/?video_id=374e166692ee4ebfae030ceae117a9d0&line=0&ratio=720p&media_type=4&vr_type=0"));
 
-        videoList.add(new VideoBean("",
+        videoList.add(new VideoBean("我能做的就这点事了",
                 "http://p1.pstatp.com/large/4bb500130248a3bcdad0.jpeg",
                 "https://aweme.snssdk.com/aweme/v1/play/?video_id=8a55161f84cb4b6aab70cf9e84810ad2&line=0&ratio=720p&media_type=4&vr_type=0"));
 
-        videoList.add(new VideoBean("",
+        videoList.add(new VideoBean("我一个老人家准备退休",
                 "http://p9.pstatp.com/large/4b8300007d1906573584.jpeg",
                 "https://aweme.snssdk.com/aweme/v1/play/?video_id=47a9d69fe7d94280a59e639f39e4b8f4&line=0&ratio=720p&media_type=4&vr_type=0"));
 
-        videoList.add(new VideoBean("",
+        videoList.add(new VideoBean("如此也好，我有些累了",
                 "http://p9.pstatp.com/large/4b61000b6a4187626dda.jpeg",
                 "https://aweme.snssdk.com/aweme/v1/play/?video_id=3fdb4876a7f34bad8fa957db4b5ed159&line=0&ratio=720p&media_type=4&vr_type=0"));
         return videoList;

@@ -3,6 +3,8 @@ package com.starkrak.framedemo.tikmother;
 import android.content.Context;
 import android.view.View;
 
+import org.jetbrains.annotations.NotNull;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by 钉某人
  * github: https://github.com/DingMouRen
  * email: naildingmouren@gmail.com
+ * @author caroline
  */
 
 public class ViewPagerLayoutManager extends LinearLayoutManager {
@@ -22,14 +25,14 @@ public class ViewPagerLayoutManager extends LinearLayoutManager {
     //位移，用来判断移动方向
     private RecyclerView.OnChildAttachStateChangeListener mChildAttachStateChangeListener = new RecyclerView.OnChildAttachStateChangeListener() {
         @Override
-        public void onChildViewAttachedToWindow(View view) {
+        public void onChildViewAttachedToWindow(@NotNull View view) {
             if (mOnViewPagerListener != null && getChildCount() == 1) {
                 mOnViewPagerListener.onInitComplete();
             }
         }
 
         @Override
-        public void onChildViewDetachedFromWindow(View view) {
+        public void onChildViewDetachedFromWindow(@NotNull View view) {
             if (mDrift >= 0) {
                 if (mOnViewPagerListener != null) {
                     mOnViewPagerListener.onPageRelease(true, getPosition(view));

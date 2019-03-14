@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.starkrak.framedemo.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,16 +28,15 @@ public class TikTokAdapter extends RecyclerView.Adapter<TikTokAdapter.VideoHolde
         this.context = context;
     }
 
+    @NotNull
     @Override
-    public VideoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public VideoHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(context).inflate(R.layout.item_tik_tok, parent, false);
         return new VideoHolder(itemView);
-
     }
 
     @Override
-    public void onBindViewHolder(final VideoHolder holder, int position) {
-
+    public void onBindViewHolder(@NotNull final VideoHolder holder, int position) {
         VideoBean videoBean = videos.get(position);
         Glide.with(context)
                 .load(videoBean.getThumb())
