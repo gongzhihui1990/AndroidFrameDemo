@@ -7,7 +7,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 
 /**
- *
  * @author qikai
  * @date 16/1/28
  */
@@ -31,7 +30,7 @@ public class MyDragShadowBuilder extends View.DragShadowBuilder {
 
     @Override
     public void onDrawShadow(@NonNull Canvas canvas) {
-         canvas.scale(0.9f,0.9f);
-         super.onDrawShadow(canvas);
+        canvas.scale(0.9f, 0.9f);
+        super.onDrawShadow(canvas);
     }
 }

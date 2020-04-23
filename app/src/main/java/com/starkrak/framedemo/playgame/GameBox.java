@@ -109,26 +109,4 @@ public class GameBox extends GameView {
     public void initDelay(int delayMillis) {
         getView().postDelayed(this::init,delayMillis);
     }
-//    private int delayMillis = 200;
-
-//    @Override
-//    public void init() {
-//        if (gameBall != null) {
-//            gameBall.init();
-//            getView().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    setGameBall(null);
-//                    invalidate();
-//                }
-//            }, delayMillis);
-//
-//        }
-//        super.init();
-//    }
-//
-//    public void initDelay(int delayMillis) {
-//        this.delayMillis = delayMillis;
-//        init();
-//    }
 }

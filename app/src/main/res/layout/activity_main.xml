@@ -160,8 +160,19 @@
                         android:layout_height="match_parent"
                         android:background="@color/main6"
                         android:layout_weight="1"
+                        android:id="@+id/funView6"
                         android:gravity="center"
-                        android:text="六"
+                        android:text="CameraX"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/main1"
+                        android:layout_weight="1"
+                        android:id="@+id/funView7"
+                        android:gravity="center"
+                        android:text="ViewPager"
                         android:textSize="20sp" />
                 </LinearLayout>
 

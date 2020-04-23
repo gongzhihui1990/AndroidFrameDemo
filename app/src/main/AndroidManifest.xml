@@ -32,6 +32,8 @@
         <activity android:name=".logboy.LogBoyActivity" />
         <activity android:name=".videogirl.VideoGirlActivity" />
         <activity android:name=".tikmother.TikTokActivity" />
+        <activity android:name=".camerax.CameraXActivity" />
+        <activity android:name=".viewpager.FragmentStatePagerSupport" />
     </application>
 
 </manifest>

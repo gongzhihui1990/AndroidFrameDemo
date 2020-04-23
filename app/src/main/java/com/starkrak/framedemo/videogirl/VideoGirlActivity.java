@@ -38,7 +38,8 @@ public class VideoGirlActivity extends BaseActivity {
         //设置控制器，如需定制可继承 BaseVideoController
         ijkVideoView.setVideoController(controller);
         //设置视频地址
-        ijkVideoView.setUrl("rtmp://10.10.10.166:1935/oflaDemo/SampleVideo.flv");
+        ijkVideoView.setUrl("http://119.23.216.4:8089/familyst/afda53b5-6b05-4329-bc74-cb28dad0f05e.mp4");
+//        ijkVideoView.setUrl("rtmp://10.10.10.166:1935/oflaDemo/SampleVideo.flv");
         //ijkVideoView.setUrl("rtmp://10.10.10.166:1935/oflaDemo/Avengers2.mp4");
         //设置视频标题
         ijkVideoView.setTitle("测试视频");

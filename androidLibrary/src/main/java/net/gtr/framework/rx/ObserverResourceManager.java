@@ -16,7 +16,7 @@ import io.reactivex.disposables.Disposable;
  * @date 2018/1/15
  */
 
-public class ObserverResourceManager implements ObserverResourceHolder {
+public class ObserverResourceManager implements ObserverResourceHolder  {
     private List<Subscription> compositeSubscription = new ArrayList<>();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 

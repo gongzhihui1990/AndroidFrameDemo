@@ -44,7 +44,7 @@ public class PlayActivity extends BaseActivity {
     private PointF dragTouchPoint = new PointF();
     private DragListener ballDragListener = dragItem -> {
         MyDragShadowBuilder dragShadowBuilder = new MyDragShadowBuilder(dragItem,
-                new Point(((int) (dragTouchPoint.x - dragItem.getX())), (int) (dragTouchPoint.y - dragItem.getY())));
+                new Point(((int) (dragTouchPoint.x /*- dragItem.getX()*/)), (int) (dragTouchPoint.y /*- dragItem.getY()*/)));
         Point shadowSize = new Point();
         Point shadowTouchPoint = new Point();
         dragShadowBuilder.onProvideShadowMetrics(shadowSize, shadowTouchPoint);

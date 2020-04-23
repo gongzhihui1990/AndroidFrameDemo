@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">FrameDemo</string>
     <string name="action_settings">setting</string>
+    <string name="first">first</string>
+    <string name="last">last</string>
+    <string name="hello_world">hello</string>
     <!-- -
         This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
         For more information, see https://support.google.com/admob/answer/3052638

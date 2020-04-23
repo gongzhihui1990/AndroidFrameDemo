@@ -85,7 +85,6 @@ public class GameBall extends GameView {
                     }
                 });
                 translateAnimation.startNow();//动画开始执行 放在最后即可
-
                 releaseHost = null;
             }
         }

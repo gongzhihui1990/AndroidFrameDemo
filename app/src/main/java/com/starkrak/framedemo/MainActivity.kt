@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater
+import com.starkrak.framedemo.camerax.CameraXActivity
 import com.starkrak.framedemo.logboy.LogBoyActivity
 import com.starkrak.framedemo.playgame.PlayActivity
 import com.starkrak.framedemo.postboy.PostBoyActivity
 import com.starkrak.framedemo.tikmother.TikTokActivity
 import com.starkrak.framedemo.videogirl.VideoGirlActivity
+import com.starkrak.framedemo.viewpager.FragmentStatePagerSupport
 import com.starkrak.framedemo.widget.MaterialHeader
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
@@ -21,24 +23,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        RxHelper.bindOnUI(Observable
-//                .just("year 2019")
-//                .map { s -> "$s.Written " +
-//                        "" +
-//                        "" +
-//                        "、" +
-//                        "" +
-//                        "" +
-//                        "" +
-//                        " GongZhiHui" }
-//                .map { s ->
-//                    if (s.length > 1) {
-//                        throw Exception(s)
-//                    }
-//                    s
-//                }, object : ProgressObserverImplementation<String>(this) {
-//        })
-
         val creator = DefaultRefreshHeaderCreater { context, layout ->
             layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white)
             MaterialHeader(context).setPercentCallback { percent ->
@@ -75,6 +59,8 @@ class MainActivity : BaseActivity() {
         funView3.setOnClickListener { startActivity(Intent(this, LogBoyActivity::class.java)) }
         funView4.setOnClickListener { startActivity(Intent(this, VideoGirlActivity::class.java)) }
         funView5.setOnClickListener { startActivity(Intent(this, TikTokActivity::class.java)) }
+        funView6.setOnClickListener { startActivity(Intent(this, CameraXActivity::class.java)) }
+        funView7.setOnClickListener { startActivity(Intent(this, FragmentStatePagerSupport::class.java)) }
     }
 
     override fun onResume() {
@@ -86,6 +72,7 @@ class MainActivity : BaseActivity() {
         super.onPause()
         blurLayout.pauseBlur()
     }
+
     private inner class GlideImageLoader : ImageLoader() {
         override fun displayImage(context: Context, path: Any, imageView: ImageView) {
             //Glide 加载图片简单用法
